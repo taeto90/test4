@@ -3,4 +3,5 @@ import 'package:get/get.dart';
 
 class getxcontroller extends GetxController {
   var count = 0.obs;
+  var index =0.obs;
 }

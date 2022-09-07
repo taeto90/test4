@@ -40,6 +40,7 @@ dependencies:
   flutter_platform_widgets: ^2.0.0
   flutter_quill: ^6.0.0
   get:
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
