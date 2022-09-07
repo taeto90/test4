@@ -21,16 +21,14 @@ class _EditorState2 extends State<Editor2> {
     // TODO: implement initState
     super.initState();
     _controller.addListener(() {
-      double n= (MediaQuery.of(context).size.width)/9.3;
+      double n= (MediaQuery.of(context).size.width)/9.1;
       controllerx.count.value = _controller.document.toPlainText().split('\n').length;
-
       int i=1;
       int sum=0;
-      while(i<8){
+      while(i<10){
         sum += _controller.document.toPlainText().split('\n').where((f) => f.length>(i*n)).toList().length;
         i++;
       }
-
       controllerx.index.value=sum;
       //controllerx.index.value = _controller.document.toPlainText().split('\n').where((f) => f.length>n).toList().length;
       // if(_controller.document.toPlainText().split('\n')[controllerx.count.value-1].length>n){
