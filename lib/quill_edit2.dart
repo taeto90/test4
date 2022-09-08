@@ -29,7 +29,7 @@ class _EditorState2 extends State<Editor2> {
 
       doc = _controller.document.toDelta();
       json = jsonDecode(jsonEncode(doc.toJson()));
-      controllerx.height.value = controllerx.cal_width(json).round();
+      controllerx.height.value = controllerx.cal_width(json,MediaQuery.of(context).size.width).round();
 
       // controllerx.count.value = _controller.document.toPlainText().split('\n').length;
       // int i=1;
@@ -51,6 +51,7 @@ class _EditorState2 extends State<Editor2> {
             icon: const Icon(Icons.search),
             onPressed: () {
               print(json);
+              print('${MediaQuery.of(context).size.width/9.1}');
               //print('${controllerx.cal_width(json)}');
               //print('${controllerx.cal_width(json).round()}');
             },

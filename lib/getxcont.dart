@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class getxcontroller extends GetxController {
   RxInt height = 0.obs;
 
-  double cal_width(var json){
+  double cal_width(var json,double screen_width){
     if(json==null){return 0;}
     int line_num='\n'.allMatches(json.toString()).length;
     int i=0;
@@ -88,7 +88,6 @@ class getxcontroller extends GetxController {
         total_size += size_list[a].reduce((curr, next) => curr > next? curr: next);}
       }}
 
-    List<double> total_width_list=[];
     double line_width=0;
     List<double> line_width_list=[];
     double toal_width=0;
@@ -102,12 +101,11 @@ class getxcontroller extends GetxController {
           line_width_list.add(line_width);
         }
       }}
+    double n = screen_width/9.1;
     for(var a=0; a<line_width_list.length;a++){
-        if(line_width_list[a]>112){toal_width++;}
-        if(line_width_list[a]>224){toal_width++;}
-        if(line_width_list[a]>338){toal_width++;}
-        if(line_width_list[a]>452){toal_width++;}
-        if(line_width_list[a]>566){toal_width++;}
+      for(var b=1;b<6;b++) {
+        if(line_width_list[a]>b*n){toal_width++;}
+      }
     }
 
 
