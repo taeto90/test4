@@ -101,10 +101,12 @@ class getxcontroller extends GetxController {
           line_width_list.add(line_width);
         }
       }}
-    double n = screen_width/9.1;
+    double n = screen_width/9;
     for(var a=0; a<line_width_list.length;a++){
       for(var b=1;b<6;b++) {
-        if(line_width_list[a]>b*n){toal_width++;}
+        if(line_width_list[a]>b*n){
+          toal_width+=size_list[a].reduce((curr, next) => curr > next? curr: next);
+        }
       }
     }
 
