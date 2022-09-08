@@ -1,7 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:get/get.dart';
-
 import 'getxcont.dart';
 
 class Editor2 extends StatefulWidget {
@@ -14,26 +15,31 @@ class Editor2 extends StatefulWidget {
 class _EditorState2 extends State<Editor2> {
   QuillController _controller = QuillController.basic();
   final controllerx = Get.put(getxcontroller());
+  var doc = new Delta();
+  var json;
 
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    //json = jsonDecode(doc.toString());
     _controller.addListener(() {
-      double n= (MediaQuery.of(context).size.width)/9.1;
-      controllerx.count.value = _controller.document.toPlainText().split('\n').length;
-      int i=1;
-      int sum=0;
-      while(i<10){
-        sum += _controller.document.toPlainText().split('\n').where((f) => f.length>(i*n)).toList().length;
-        i++;
-      }
-      controllerx.index.value=sum;
-      //controllerx.index.value = _controller.document.toPlainText().split('\n').where((f) => f.length>n).toList().length;
-      // if(_controller.document.toPlainText().split('\n')[controllerx.count.value-1].length>n){
-      //   controllerx.index.value = ((_controller.document.toPlainText().split('\n')[controllerx.count.value-1].length)/n).toInt();
+      double n= (MediaQuery.of(context).size.width)/9.1;  //normal size일경우
+
+      doc = _controller.document.toDelta();
+      json = jsonDecode(jsonEncode(doc.toJson()));
+      controllerx.cal_width(json);
+      controllerx.height.value = controllerx.cal_width(json).round();
+
+      // controllerx.count.value = _controller.document.toPlainText().split('\n').length;
+      // int i=1;
+      // int sum=0;
+      // while(i<10){
+      //   sum += _controller.document.toPlainText().split('\n').where((f) => f.length>(i*n)).toList().length;
+      //   i++;
       // }
+      // controllerx.index.value=sum;
     });
   }
 
@@ -45,9 +51,10 @@ class _EditorState2 extends State<Editor2> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              print(_controller.document.toPlainText());
-              print( controllerx.count.value);
-              print('${MediaQuery.of(context).size.width}');
+              print(json);
+
+              //print('${controllerx.cal_width(json)}');
+              //print('${controllerx.cal_width(json).round()}');
             },
           ),
         ],
@@ -59,7 +66,7 @@ class _EditorState2 extends State<Editor2> {
                   return Container(
                       color: Colors.white,
                       margin: EdgeInsets.fromLTRB(20, 20, 20,
-                          300- controllerx.count.value*20 - controllerx.index.value*20),
+                          ((300- controllerx.height.value*20)>20)?(300- controllerx.height.value*20):20),
                       child: Column(
                           children: [
                             QuillToolbar.basic(controller: _controller),

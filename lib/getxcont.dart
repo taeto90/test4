@@ -2,6 +2,92 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
 
 class getxcontroller extends GetxController {
-  var count = 0.obs;
-  var index =0.obs;
+  RxInt height = 0.obs;
+
+  double cal_width(var json){
+    if(json==null){return 0;}
+    int line_num='\n'.allMatches(json.toString()).length;
+    int i=0;
+    int j=0;
+    int k=0;
+    var insert_list=List.generate(line_num, (_) => []);
+    var attributes_list=List.generate(line_num, (_) => []);
+    var size_list=List.generate(line_num, (_) => []);
+
+    while(i<json.length){
+      if(json[i]['insert'].contains('\n')){
+         if(json[i]['insert']=='\n'&&json[i]['attributes']!=null){
+             for(var t=0; t<attributes_list[j].length;t++){
+             if(attributes_list[j][t]=='none')
+             {attributes_list[j].removeAt(t);
+               attributes_list[j].insert(t,json[i]['attributes']);
+             }
+           }j++;
+         }else if(json[i]['insert'].startsWith('\n')&&json[i]['insert'].endsWith('\n')&&json[i]['attributes']==null){
+           for(var p=0; p<json[i]['insert'].split('\n').length-1;p++){
+           insert_list[j].add('');
+           attributes_list[j].add('none');
+           j++;}
+           }else{
+           k = (json[i]['insert'].endsWith('\n'))?json[i]['insert'].split('\n').length-1:json[i]['insert'].split('\n').length;
+           for(int t=0; t<k; t++){
+             insert_list[j].add(json[i]['insert'].split('\n')[t]);
+             attributes_list[j].add('none');
+             if(t!=k-1){j++;}
+           }
+         }
+      }
+      else{
+        insert_list[j].add(json[i]['insert']);
+        if(json[i]['attributes']!=null)
+          {attributes_list[j].add(json[i]['attributes']);
+          }else{attributes_list[j].add('none');}
+      }
+      i++;
+    }
+
+    // print('---------------------------------list출력');
+    // if(insert_list.length !=null){
+    // for(var a=0; a<insert_list.length;a++){
+    //   if(insert_list[a].length !=null){
+    //   for(var b=0; b<insert_list[a].length;b++)
+    //     {print(insert_list[a][b]);
+    //     print(attributes_list[a][b]);}}
+    //   print('---------------------------------nextline');
+    // }}
+
+
+    if(attributes_list.length !=null){
+    for(var a=0; a<insert_list.length;a++){
+      if(attributes_list[a].length !=null){
+      for(var b=0; b<insert_list[a].length;b++)
+        {
+          if(attributes_list[a][b].toString()=='none'){size_list[a].add(1);}
+          else if(attributes_list[a][b].toString()=='{size: small}'){size_list[a].add(0.62);}
+          else if(attributes_list[a][b].toString()=='{size: large}'){size_list[a].add(1.23);}
+          else if(attributes_list[a][b].toString()=='{size: huge}'){size_list[a].add(1.37);}
+          else if(attributes_list[a][b].toString()=='{header: 1}'){size_list[a].add(2.13);}
+          else if(attributes_list[a][b].toString()=='{header: 2}'){size_list[a].add(1.5);}
+          else if(attributes_list[a][b].toString()=='{header: 3}'){size_list[a].add(1.25);}
+          else{size_list[a].add(1);}
+        }}
+    }}
+    // print('---------------------------------list출력');
+    // if(insert_list.length !=null){
+    //   for(var a=0; a<insert_list.length;a++){
+    //     if(insert_list[a].length !=null){
+    //       for(var b=0; b<insert_list[a].length;b++)
+    //       {print(insert_list[a][b]);
+    //       print('${size_list[a][b]}');}}
+    //     print('---------------------------------nextline');
+    //   }}
+    double total_size=0;
+    if(size_list.length !=null){
+      for(var a=0; a<insert_list.length;a++){
+        if(size_list[a].length !=null){
+        total_size += size_list[a].reduce((curr, next) => curr > next? curr: next);}
+      }}
+
+    return total_size;
+  }
 }
