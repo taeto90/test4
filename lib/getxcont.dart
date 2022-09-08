@@ -64,9 +64,9 @@ class getxcontroller extends GetxController {
         {
           if(attributes_list[a][b].toString()=='none'){size_list[a].add(1);}
           else if(attributes_list[a][b].toString()=='{size: small}'){size_list[a].add(0.62);}
-          else if(attributes_list[a][b].toString()=='{size: large}'){size_list[a].add(1.23);}
-          else if(attributes_list[a][b].toString()=='{size: huge}'){size_list[a].add(1.37);}
-          else if(attributes_list[a][b].toString()=='{header: 1}'){size_list[a].add(2.13);}
+          else if(attributes_list[a][b].toString()=='{size: large}'){size_list[a].add(1.16);}
+          else if(attributes_list[a][b].toString()=='{size: huge}'){size_list[a].add(1.38);}
+          else if(attributes_list[a][b].toString()=='{header: 1}'){size_list[a].add(2.2);}
           else if(attributes_list[a][b].toString()=='{header: 2}'){size_list[a].add(1.5);}
           else if(attributes_list[a][b].toString()=='{header: 3}'){size_list[a].add(1.25);}
           else{size_list[a].add(1);}
@@ -88,6 +88,31 @@ class getxcontroller extends GetxController {
         total_size += size_list[a].reduce((curr, next) => curr > next? curr: next);}
       }}
 
-    return total_size;
+    List<double> total_width_list=[];
+    double line_width=0;
+    List<double> line_width_list=[];
+    double toal_width=0;
+    if(size_list.length !=null){
+      for(var a=0; a<insert_list.length;a++){
+        if(size_list[a].length !=null){
+          line_width=0;
+          for(var b=0; b<insert_list[a].length;b++){
+            line_width += size_list[a][b] * insert_list[a][b].toString().length;
+          }
+          line_width_list.add(line_width);
+        }
+      }}
+    for(var a=0; a<line_width_list.length;a++){
+        if(line_width_list[a]>112){toal_width++;}
+        if(line_width_list[a]>224){toal_width++;}
+        if(line_width_list[a]>338){toal_width++;}
+        if(line_width_list[a]>452){toal_width++;}
+        if(line_width_list[a]>566){toal_width++;}
+    }
+
+
+
+
+    return total_size+toal_width;
   }
 }
