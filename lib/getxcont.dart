@@ -25,7 +25,8 @@ class getxcontroller extends GetxController {
            }j++;
          }else if(json[i]['insert'].startsWith('\n')&&json[i]['insert'].endsWith('\n')&&json[i]['attributes']==null){
            for(var p=0; p<json[i]['insert'].split('\n').length-1;p++){
-           insert_list[j].add('');
+           //insert_list[j].add('');
+             insert_list[j].add((json[i]['insert'].split('\n'))[p]);
            attributes_list[j].add('none');
            j++;}
            }else{
@@ -46,15 +47,15 @@ class getxcontroller extends GetxController {
       i++;
     }
 
-    // print('---------------------------------list출력');
-    // if(insert_list.length !=null){
-    // for(var a=0; a<insert_list.length;a++){
-    //   if(insert_list[a].length !=null){
-    //   for(var b=0; b<insert_list[a].length;b++)
-    //     {print(insert_list[a][b]);
-    //     print(attributes_list[a][b]);}}
-    //   print('---------------------------------nextline');
-    // }}
+    print('---------------------------------list출력');
+    if(insert_list.length !=null){
+    for(var a=0; a<insert_list.length;a++){
+      if(insert_list[a].length !=null){
+      for(var b=0; b<insert_list[a].length;b++)
+        {print(insert_list[a][b]);
+        print(attributes_list[a][b]);}}
+      print('---------------------------------nextline');
+    }}
 
 
     if(attributes_list.length !=null){

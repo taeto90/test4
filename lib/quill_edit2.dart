@@ -29,16 +29,11 @@ class _EditorState2 extends State<Editor2> {
 
       doc = _controller.document.toDelta();
       json = jsonDecode(jsonEncode(doc.toJson()));
-      controllerx.height.value = controllerx.cal_width(json,MediaQuery.of(context).size.width).round();
+      //controllerx.height.value = controllerx.cal_width(json,MediaQuery.of(context).size.width).round();
+      controllerx.height.value = '\n'.allMatches(json.toString()).length;
+
 
       // controllerx.count.value = _controller.document.toPlainText().split('\n').length;
-      // int i=1;
-      // int sum=0;
-      // while(i<10){
-      //   sum += _controller.document.toPlainText().split('\n').where((f) => f.length>(i*n)).toList().length;
-      //   i++;
-      // }
-      // controllerx.index.value=sum;
     });
   }
 
@@ -51,8 +46,9 @@ class _EditorState2 extends State<Editor2> {
             icon: const Icon(Icons.search),
             onPressed: () {
               print(json);
-              print('${MediaQuery.of(context).size.width/9.1}');
-              //print('${controllerx.cal_width(json)}');
+              //print('${MediaQuery.of(context).size.width/9.1}');
+              controllerx.cal_width(json,MediaQuery.of(context).size.width);
+              //print('${controllerx.cal_width(json,MediaQuery.of(context).size.width)}');
               //print('${controllerx.cal_width(json).round()}');
             },
           ),
