@@ -47,15 +47,15 @@ class getxcontroller extends GetxController {
       i++;
     }
 
-    print('---------------------------------list출력');
-    if(insert_list.length !=null){
-    for(var a=0; a<insert_list.length;a++){
-      if(insert_list[a].length !=null){
-      for(var b=0; b<insert_list[a].length;b++)
-        {print(insert_list[a][b]);
-        print(attributes_list[a][b]);}}
-      print('---------------------------------nextline');
-    }}
+    // print('---------------------------------list출력');
+    // if(insert_list.length !=null){
+    // for(var a=0; a<insert_list.length;a++){
+    //   if(insert_list[a].length !=null){
+    //   for(var b=0; b<insert_list[a].length;b++)
+    //     {print(insert_list[a][b]);
+    //     print(attributes_list[a][b]);}}
+    //   print('---------------------------------nextline');
+    // }}
 
 
     if(attributes_list.length !=null){

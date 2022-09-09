@@ -29,8 +29,8 @@ class _EditorState2 extends State<Editor2> {
 
       doc = _controller.document.toDelta();
       json = jsonDecode(jsonEncode(doc.toJson()));
-      //controllerx.height.value = controllerx.cal_width(json,MediaQuery.of(context).size.width).round();
-      controllerx.height.value = '\n'.allMatches(json.toString()).length;
+      controllerx.height.value = controllerx.cal_width(json,MediaQuery.of(context).size.width).round();
+      //controllerx.height.value = '\n'.allMatches(json.toString()).length;
 
 
       // controllerx.count.value = _controller.document.toPlainText().split('\n').length;
@@ -49,7 +49,6 @@ class _EditorState2 extends State<Editor2> {
               //print('${MediaQuery.of(context).size.width/9.1}');
               controllerx.cal_width(json,MediaQuery.of(context).size.width);
               //print('${controllerx.cal_width(json,MediaQuery.of(context).size.width)}');
-              //print('${controllerx.cal_width(json).round()}');
             },
           ),
         ],
